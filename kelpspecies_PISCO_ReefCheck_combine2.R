@@ -12,7 +12,8 @@
 library(tidyverse); library(ggplot2); library(modelr); library(dplyr)  
 rm(list=ls())
 ################################################
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp/")
+# setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp/")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 # REEF CHECK DATA - locations assigned in GIS
 # Bull kelp is summarized, but giant kelp is not because it has stipe count information.
@@ -171,3 +172,14 @@ d5<-d3%>% #d4
 d5
 
 write_csv(d5,"./results/kelpspecies_PISCO_RC_density_location.csv")
+
+#stats 
+yrs<-d5%>%
+  select(location,year)%>%
+  unique()%>%
+  group_by(location)%>%
+  summarize(
+    yr_1=min(year),
+    yr_2=max(year),
+    n=n())%>%
+  glimpse

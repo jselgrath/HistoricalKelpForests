@@ -11,7 +11,8 @@ library(tidyverse); library(ggplot2); library(modelr); library(dplyr); library(t
 
 ################################################
 rm(list=ls())
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp/")
+# setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp/")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 # data for transect/site/year- 
 d1<-read_csv("./data/MLPA_kelpforest_swath.4.csv", guess_max = 250000) %>% 
@@ -19,10 +20,14 @@ d1<-read_csv("./data/MLPA_kelpforest_swath.4.csv", guess_max = 250000) %>%
   # this selects adults only, not recruits. 
   #Recruits were inconsistently measured in different years (yes = 2010, 2011, and 2014 onward). 
   #classcode=="STRPURREC" | classcode=="MESFRAREC" ) #these codes pull recruits
-  select(year,classcode,site:size)%>% #(survey_year:size)%>%
+  # select(year,classcode,site:size)%>% #(survey_year:size)%>%
   group_by(year, classcode, site, zone, transect)%>%
-  summarise(count=sum(count))%>%
-  ungroup()# add up counts from different size classes
+  # summarise(count=sum(count))%>%
+  ungroup()%>%# add up counts from different size classes
+glimpse()
+
+  range(d1$size,na.rm=T)
+  qplot(d1$size)
 
 d1$transect<-as.numeric(d1$transect)
 ggplot(data=d1,aes(x=year))+ geom_histogram()
@@ -76,11 +81,11 @@ d5$count[is.na(d5$count)]<-0
 
 # original
 d3%>%filter(year==1999,site=="BLUEFISH_DC")
-d1%>%filter(year==1999,site=="BLUEFISH_DC")%>%group_by(classcode,zone)%>%summarize(tx=n(),count2=sum(count))
+d1%>%filter(year==1999,site=="BLUEFISH_DC")%>%group_by(classcode,zone)%>%reframe(tx=n(),count2=sum(count))
 
 # with zeros, for both species
 d5%>%filter(year==1999,site=="BLUEFISH_DC")
-d5%>%filter(year==1999,site=="BLUEFISH_DC")%>%group_by(classcode,zone)%>%summarize(tx=n(),count2=sum(count))
+d5%>%filter(year==1999,site=="BLUEFISH_DC")%>%group_by(classcode,zone)%>%reframe(tx=n(),count2=sum(count))
 
 
 # confirm no NAs
@@ -108,7 +113,7 @@ write_csv(d6,"./results/urchin_PISCO_location123_raw.csv")
 # calculate density by transect
 d8<-d6%>%
   group_by(year, location, location3,organism,classcode,site,genus,zone,transect)%>%
-  summarise(
+  reframe(
     density_m2=count/60, #60m2 transects
     tx_n=n())%>%
   ungroup()
@@ -117,7 +122,7 @@ d8
 #calculate mean density etc per site
 d9<-d8%>%
   group_by(year, location, location3,organism,classcode,site,genus)%>%
-  summarise(
+  reframe(
     Density_m2_u=sum(density_m2)/sum(tx_n),
     Density_sd=sd(density_m2),
     Density_n=n())

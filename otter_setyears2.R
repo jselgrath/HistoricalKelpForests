@@ -10,7 +10,7 @@
 library(tidyverse)
 rm(list=ls())
 ################################################
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 ######################################################
 # SET RELATIVE ABUNDANCES #################################
@@ -40,7 +40,7 @@ d3$popdens_km<-round((d3$estimatedpop/(d3$totalmi2to20fm*2.58999)*0.82021),2)
 
 
 
-#set relative abundance based on mean & sd values from CAFW Surveys.. 
+#set relative abundance based on mean & sd values from CDFW Surveys.. 
 # Note different breaks for different location groupings due to high site variability 
 # carrying capacity per km2 originally estimated to be around 5 or a little higher
 
@@ -118,34 +118,6 @@ write_csv(d4_1,"./results/otter_20thCent_abundance_location.csv")
 
 
 #######################################################
-# SET LOCATION2 PRESENCE/ABSENCE #################
-
-# d4_2a<-tibble(data.frame(expand_grid(year=c(1800,1938,1947,1951,1955,1957,1959,1963,1966,1969,1972,1973,1974,1975), location2= c("Big Sur", "Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer"))))
-# 
-# 
-# d4_2b<-tibble(merge(d4_2a,d3));d4_2b
-# d4_2<-dplyr::select(d4_2b,year,location2,organism,popdens_km,abundance_u2,source,reference)
-# d4_2
-# 
-# d4_2$present<-0
-# d4_2$present[d4_2$location2=="Big Sur"]<-1
-# d4_2$present[d4_2$location2=="Carmel" & d4_2$year>=yr_arr23$year[3]]<-1 # d4_2$year arrived carmel - was 1955 when arrived pt lobos
-# d4_2$present[d4_2$location2=="Monterey Outer" & d4_2$year>=yr_arr23$year[4]]<-1 #d4_2$year arrived pt joe
-# d4_2$present[d4_2$location2=="Monterey Bay" & d4_2$year>=yr_arr23$year[5]]<-1 # d4_2$year arrived lovers point
-# d4_2$present[d4_2$location2=="Santa Cruz Bay" & d4_2$year>=yr_arr23$year[6]]<-1 # d4_2$year arrived SC (or maybe next d4_2$year - see pearse and hines)
-# d4_2$present[d4_2$location2=="Santa Cruz Outer" & d4_2$year>=yr_arr23$year[7]]<-1 #see redmond & estes
-# 
-# # set abundance == 0 to years pre arrival
-# d4_2$abundance_u2[d4_2$present==0]<-0
-# d4_2$popdens_km[d4_2$present==0]<-0
-# 
-# filter(d4_2,location2=="Big Sur")
-# d4_2
-# 
-# write_csv(d4_2,"./results/otter_20thCent_abundance_location2.csv")
-
-
-#######################################################
 # SET LOCATION3 PRESENCE/ABSENCE  #####################
 d4_3a<-tibble(data.frame(expand_grid(year=c(1800,1938,1947,1951,1955,1957,1959,1963,1966,1969,1972,1973,1974,1975), location3= c("Big Sur", "Carmel Outer","Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer"))))
 
@@ -178,8 +150,8 @@ write_csv(d4_3,"./results/otter_20thCent_abundance_location3.csv")
 #########################################################################
 # SET ABUNDANCE FOR ALL YEARS ############################################
 #########################################################################
-# set relative abundance based on mean & sd values from CAFW Surveys.. see above code 
-# Note differnt breaks for different location groupings due to high site variability 
+# set relative abundance based on mean & sd values from CDFW Surveys.. see above code 
+# Note different breaks for different location groupings due to high site variability 
 # carrying capacity per km2 originally estimated to be around 5 or a little higher
 
 
@@ -236,91 +208,6 @@ tail(d8_1)
 
 write_csv(d8_1,"./results/otter_20thCent_abundance_location_allyr.csv")
 
-
-
-###################################################
-# LOCATION2 ###########################
-###################################################
-
-# location2
-# d8_2<-data.frame(expand_grid(year=c(1914:1975), location2= c("Big Sur", "Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer"),organism="sea otters",source="Literature, Journals, Field Notes",reference="CDFG Report 1976"))
-
-
-
-# ######################################################
-# # PRESENCE ABSENCE LOCATION2 ##################
-# d8_2$present<-0
-# d8_2$present[d8_2$location2=="Big Sur"]<-1
-# d8_2$present[d8_2$location2=="Carmel" & d8_2$year>=yr_arr23$year[3]]<-1 # d8_2$year arrived pt lobos
-# d8_2$present[d8_2$location2=="Monterey Outer" & d8_2$year>=yr_arr23$year[4]]<-1 #d8_2$year arrived pt joe
-# d8_2$present[d8_2$location2=="Monterey Bay" & d8_2$year>=yr_arr23$year[5]]<-1 # d8_2$year arrived lovers point
-# d8_2$present[d8_2$location2=="Santa Cruz Bay" & d8_2$year>=yr_arr23$year[6]]<-1 # d8_2$year arrived SC (or maybe next d8_2$year - see pearse and hines)
-# d8_2$present[d8_2$location2=="Santa Cruz Outer" & d8_2$year>=yr_arr23$year[7]]<-1 #see redmond & estes
-# 
-# # ABUNDANCE LOCATION2 ################################
-# # set abundance == 0 to years pre arrival
-# d8_2$abundance<-0
-# 
-# # Big Sur
-# d8_2$abundance[d8_2$year<1938 &  d8_2$location2=="Big Sur"]<-d3$abundance_u2[1]
-# d8_2$abundance[d8_2$year>=1938 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[2]
-# d8_2$abundance[d8_2$year>=1947 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[3]
-# d8_2$abundance[d8_2$year>=1951 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[4]
-# d8_2$abundance[d8_2$year>=1955 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[5]
-# d8_2$abundance[d8_2$year>=1957 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[6]
-# d8_2$abundance[d8_2$year>=1959 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[7]
-# d8_2$abundance[d8_2$year>=1963 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[8]
-# d8_2$abundance[d8_2$year>=1966 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[9]
-# d8_2$abundance[d8_2$year>=1969 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[10]
-# d8_2$abundance[d8_2$year>=1972 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[11]
-# d8_2$abundance[d8_2$year>=1973 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[12]
-# d8_2$abundance[d8_2$year>=1974 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[13]
-# d8_2$abundance[d8_2$year>=1975 & d8_2$location2=="Big Sur"]<-d3$abundance_u2[14]
-# 
-# # carmel 
-# d8_1$abundance[d8_1$year>=1955 & d8_1$location2=="Carmel"]<-1 # set years to 1 two years prior to front moving in
-# d8_2$abundance[d8_2$year>=1957 & d8_2$location2=="Carmel"]<-d3$abundance_u2[6]
-# d8_2$abundance[d8_2$year>=1959 & d8_2$location2=="Carmel"]<-d3$abundance_u2[7]
-# d8_2$abundance[d8_2$year>=1963 & d8_2$location2=="Carmel"]<-d3$abundance_u2[8]
-# d8_2$abundance[d8_2$year>=1966 & d8_2$location2=="Carmel"]<-d3$abundance_u2[9]
-# d8_2$abundance[d8_2$year>=1969 & d8_2$location2=="Carmel"]<-d3$abundance_u2[10]
-# d8_2$abundance[d8_2$year>=1972 & d8_2$location2=="Carmel"]<-d3$abundance_u2[11]
-# d8_2$abundance[d8_2$year>=1973 & d8_2$location2=="Carmel"]<-d3$abundance_u2[12]
-# d8_2$abundance[d8_2$year>=1974 & d8_2$location2=="Carmel"]<-d3$abundance_u2[13]
-# d8_2$abundance[d8_2$year>=1975 & d8_2$location2=="Carmel"]<-d3$abundance_u2[14]
-# 
-# # monterey outer
-# d8_2$abundance[d8_2$year>=1957 & d8_2$location2=="Monterey Outer"]<-1 # set years to 1 two years prior to front moving in
-# d8_2$abundance[d8_2$year>=1959 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[7]
-# d8_2$abundance[d8_2$year>=1963 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[8]
-# d8_2$abundance[d8_2$year>=1966 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[9]
-# d8_2$abundance[d8_2$year>=1969 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[10]
-# d8_2$abundance[d8_2$year>=1972 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[11]
-# d8_2$abundance[d8_2$year>=1973 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[12]
-# d8_2$abundance[d8_2$year>=1974 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[13]
-# d8_2$abundance[d8_2$year>=1975 & d8_2$location2=="Monterey Outer"]<-d3$abundance_u2[14]
-# 
-# # monterey bay
-# d8_2$abundance[d8_2$year>=1964 & d8_2$location2=="Monterey Bay"]<-1 # set years to 1 two years prior to front moving in
-# d8_2$abundance[d8_2$year>=1966 & d8_2$location2=="Monterey Bay"]<-d3$abundance_u2[9]
-# d8_2$abundance[d8_2$year>=1969 & d8_2$location2=="Monterey Bay"]<-d3$abundance_u2[10]
-# d8_2$abundance[d8_2$year>=1972 & d8_2$location2=="Monterey Bay"]<-d3$abundance_u2[11]
-# d8_2$abundance[d8_2$year>=1973 & d8_2$location2=="Monterey Bay"]<-d3$abundance_u2[12]
-# d8_2$abundance[d8_2$year>=1974 & d8_2$location2=="Monterey Bay"]<-d3$abundance_u2[13]
-# d8_2$abundance[d8_2$year>=1975 & d8_2$location2=="Monterey Bay"]<-d3$abundance_u2[14]
-# 
-# # santa cruz 
-# d8_2$abundance[d8_2$year>=1975 & d8_2$location2=="Santa Cruz Bay"]<-1 # set years to 1 two years prior to front moving in
-# # arrived 1977 - after this dataset
-# 
-# d8_2$present<-0
-# d8_2$present[d8_2$abundance>0]<-1
-# 
-# d8_2
-# tail(d8_2)
-# 
-# write_csv(d8_2,"./results/otter_20thCent_abundance_location2_allyr.csv")
-# 
 
 
 ######################################################
@@ -423,12 +310,14 @@ tail(d8_3)
 
 
 
-########################################################################################
-# HISTORICAL DATA PRE 1914 ####################################
-#########################################################################################
+#--------------------------------------------------------------------------------------------
+# HISTORICAL DATA PRE 1914 ########################
+#--------------------------------------------------------------------------------------------
+
 # estimages of historical relative abundance in years in study sites #################
 # Not including 1914 because estimated in above from same data, but citing source
-# LOCATION
+
+# LOCATION ---------------------------------------------
 d5_1<-data.frame(expand_grid(year=c(1815,1833,1840), location= c("Big Sur", "Monterey Peninsula", "Santa Cruz")))
 d5_1$abundance<-c(rep(4,3),rep(2,3),2,rep(1,2))
 d5_1$source<-"Literature, Journals, Field Notes"
@@ -439,18 +328,8 @@ d5_1$organism<-"sea otters"
 d5_1$year
 d5_1
 
-# # LOCATION2
-# d5_2<-data.frame(expand_grid(year=c(1815,1833,1840), location2= c("Big Sur", "Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer")))
-# d5_2$abundance<-c(rep(4,6),rep(2,6),2,rep(1,5))
-# d5_2$source<-"Literature, Journals, Field Notes"
-# d5_2$reference<-"Odgen 1942"
-# d5_2$present<-1
-# d5_2$present[d5_2$year==1914&d5_2$location2!="Big Sur"]<-0
-# d5_2$organism<-"sea otters"
-# d5_2$year
-# d5_2
 
-#location3
+#location3 ------------------------------------------------
 d5_3<-data.frame(expand_grid(year=c(1815,1833,1840), location3= c("Big Sur", "Carmel Outer","Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer")))
 d5_3$abundance<-c(rep(5,7),rep(2,7),2,rep(1,6))
 d5_3$source<-"Literature, Journals, Field Notes"
@@ -460,9 +339,11 @@ d5_3$present[d5_3$year==1914&d5_3$location3!="Big Sur"]<-0
 d5_3$organism<-"sea otters"
 d5_3
 
-
+#--------------------------------------------------------------------------------------------
 #interpolate years after 1820 #####################
-# location
+#--------------------------------------------------------------------------------------------
+
+# location --------------------------------------
 d5_1_fill<-tibble(data.frame(expand_grid(year=c(1815,1820:1914), location= c("Big Sur", "Monterey Peninsula", "Santa Cruz"), organism="sea otters", source="Literature, Journals, Field Notes", reference="Odgen 1942")))
 d5_1_fill$present<-0
 d5_1_fill$abundance<-c(rep(4,3),
@@ -476,19 +357,8 @@ d5_1_fill$present[d5_1_fill$abundance>0]<-1
 
 
 
-# # location2
-# d5_2_fill<-tibble(data.frame(expand_grid(year=c(1815,1820:1914), location2= c("Big Sur", "Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer"), organism="sea otters", source="Literature, Journals, Field Notes", reference="Odgen 1942")))
-# d5_2_fill$present<-0
-# d5_2_fill$abundance<-c(rep(4,6),
-#                        rep(3,6),rep(2.9,6),rep(2.8,6),rep(2.7,6),rep(2.6,6),rep(2.5,6),rep(2.4,6),rep(2.3,6),rep(2.2,6),rep(2.1,6),
-#                        rep(2,6),rep(1.9,6),rep(1.8,6),rep(1.7,6),rep(1.6,6),rep(1.5,6),rep(1.4,6),rep(1.3,6),rep(1,6), 
-#                        rep(0.7,6),rep(0.4,6),
-#                        rep(0.1,6),rep(0,438))
-# d5_2_fill$abundance[d5_2_fill$location2=="Big Sur" & d5_2_fill$year>1841]<-0.1 # keep big sur population at 0.1. 1940 = just after guns widely used
-# d5_2_fill$present[d5_2_fill$abundance>0]<-1
-# # view(d5_2_fill)
 
-# LOCATION3 ################
+# LOCATION3 --------------------------------------------
 d5_3_fill<-tibble(expand_grid(year=c(1815,1820:1914), location3= c("Big Sur", "Carmel Outer","Carmel", "Monterey Outer", "Monterey Bay", "Santa Cruz Bay", "Santa Cruz Outer"), organism="sea otters", source="Literature, Journals, Field Notes", reference="Odgen 1942"))
 d5_3_fill$present<-0
 d5_3_fill$abundance<-c(rep(4,7),
@@ -505,9 +375,12 @@ write_csv(d5_1_fill,"./data/otter_historical_location.csv")
 write_csv(d5_3_fill,"./data/otter_historical_location3.csv")
 
 
+# --------------------------------------------------------------------------------------------
+# join historical estimates with estimates from early 20th century #################
+#--------------------------------------------------------------------------------------------
 
-# join historical estimates with estimates from early 20th century ##################
-#location
+
+#location----------------------------------------------
 names(d5_1)
 names(d4_1)
 
@@ -520,20 +393,9 @@ d6_1
 write_csv(d6_1,"./results/otter_historical_all_location.csv")
 
 
-#location2
-# names(d5_2)
-# names(d4_2)
-# 
-# d4_2b<-d4_2%>%
-#   dplyr::select(year,location2,organism,source,reference,present,abundance=abundance_u2)
-# 
-# d6_2<-rbind(d5_2,d4_2b)%>%
-#   arrange(year,location2)
-# d6_2
-# write_csv(d6_2,"./results/otter_historical_all_location2.csv")
 
 
-#location3
+#location3 --------------------------------------------
 names(d5_3)
 names(d4_3)
 
@@ -546,10 +408,12 @@ d6_3
 write_csv(d6_3,"./results/otter_historical_all_location3.csv")
 
 
-
+#--------------------------------------------------------------------------------------------
 # join historical estimates with estimates from early 20th century - for all years filled in #########
+#--------------------------------------------------------------------------------------------
 
-#location
+
+#location-------------------------------------------------------------
 names(d5_1_fill)
 names(d8_1)
 
@@ -559,17 +423,9 @@ d9_1<-rbind(d5_1_fill,d8_1)%>%
 d9_1
 write_csv(d9_1,"./results/otter_historical_all_location_allyears.csv")
 
-#location2
-# names(d5_2_fill)
-# names(d8_2)
-# 
-# d9_2<-rbind(d5_2_fill,d8_2)%>%
-#   arrange(year)
-# d9_2
-# write_csv(d9_2,"./results/otter_historical_all_location2_allyears.csv")
 
 
-#location3
+#location3 ----------------------------------------------
 names(d5_3_fill)
 names(d8_3)
 
@@ -577,4 +433,18 @@ d9_3<-tibble(rbind(d5_3_fill,d8_3))%>%
   arrange(year)
 d9_3
 write_csv(d9_3,"./results/otter_historical_all_location3_allyears.csv")
+
+
+#stats -----------------------------
+d9_1a<-d9_1%>%
+  select(year,location)%>%
+  unique()%>%
+  group_by(location)%>%
+  summarize(
+    yr_1=min(year),
+    yr_2=max(year),
+    n=n())%>%
+  mutate(organism="otters",data="HIST")%>%
+  glimpse
+write_csv(d9_1a,"./doc/sampsz_otter_hist_location.csv")
 

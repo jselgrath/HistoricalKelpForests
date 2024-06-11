@@ -15,7 +15,7 @@ rm(list=ls())
 dateToday=Sys.Date()
 
 # oral history data 
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 l1<-list.files("./data/otter_density_location/", pattern=".csv") #i = includes regions (identity fxn in GIS)
 l1
@@ -77,6 +77,18 @@ d2$source<-"cdfw"
 write_csv(d2,"./results/otter_cdfw_dens_location.csv")
 
 
+#stats - source = reference here
+d2%>%
+  select(year,location)%>%
+  unique()%>%
+  group_by(location)%>%
+  summarize(
+    yr_1=min(year),
+    yr_2=max(year),
+    n=n())%>%
+  glimpse
+
+
 # make similar to other data
 range(d2$popdens_km_u) #
 range(d2$popdens_km_u[d2$depth=="0 to -30m"]) #
@@ -106,6 +118,10 @@ t4
 
 write_csv(t4,"./doc/otter_min_max.csv")
 write_csv(t3,"./doc/otter_through_2013.csv")
+
+
+
+
 
 ############################################
 # EQUAL INTERVAL ######################

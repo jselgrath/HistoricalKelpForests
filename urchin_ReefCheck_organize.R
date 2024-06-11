@@ -11,7 +11,7 @@ library(tidyverse); library(ggplot2); library(modelr); library(dplyr)
 
 ################################################
 rm(list=ls())
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp/")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 # REEF CHECK DATA - locations assigned in GIS
 d1<- read_csv("./data/reefcheckCA_invert_location3.csv")%>% 

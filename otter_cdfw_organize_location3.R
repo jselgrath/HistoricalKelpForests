@@ -15,7 +15,7 @@ rm(list=ls())
 dateToday=Sys.Date()
 
 # oral history data 
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 l1<-list.files("./data/otter_density_location3/", pattern=".csv") #i = includes regions (identity fxn in GIS)
 l1
@@ -80,7 +80,7 @@ write_csv(d2,"./results/otter_cdfw_dens_location3.csv")
 
 
 ############################################################
-# make similar to other data ############
+# make same as other data ############
 #############################################################
 range(d2$popdens_km_u) #0.2609642 28.0988837
 range(d2$popdens_km_u[d2$depth=="0 to -30m"]) #0.2609642 28.0988837

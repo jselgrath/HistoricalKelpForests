@@ -10,7 +10,7 @@
 library(tidyverse); library(ggplot2); library(modelr)  
 rm(list=ls())
 ################################################
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp/")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 # Micheli data
 d1<-read_csv("./data/urchins_data_Micheli_2002.csv") #was urchins_2002 but same file
@@ -54,7 +54,9 @@ write_csv(d4,"./results/urchin_micheli_density_transect.csv")
 # summarize by site
 d5<-d4%>%
   group_by(year,organism,source,site,genus)%>%
-  summarize(density_m2_n=length(density_m2),density_m2_u=mean(density_m2),density_m2_sd=sd(density_m2))%>%
+  summarize(density_m2_n=length(density_m2),
+            density_m2_u=mean(density_m2),
+            density_m2_sd=sd(density_m2))%>%
   arrange(site,genus)
 d5
 

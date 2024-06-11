@@ -11,7 +11,8 @@ library(tidyverse); library(ggplot2); library(modelr); library(dplyr); library(l
 
 ################################################
 rm(list=ls())
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp/")
+# setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/kelp/")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 #PISCO DATA
 d1<-read_csv("./data/MLPA_kelpforest_swath.4.csv", guess_max = 250000)%>% 
@@ -127,3 +128,43 @@ d9%>%filter(year==1999,site=="BLUEFISH_DC")
 
 write_csv(d8,"./results/kelpspecies_PISCO_location123_bytransect.csv")  
 write_csv(d9,"./results/kelpspecies_PISCO_location123.csv")  
+
+
+
+# ------------------------------------------------------------
+# summarize by site no species data ####################
+# ------------------------------------------------------------
+
+# calculate density by transect
+d10<-d6%>%
+  group_by(year, location, location3,organism,site,zone,transect)%>%
+  summarise(
+    count2=sum(count), # for both species
+    density_m2=count2/60 #60m2 transects
+    )%>%
+  ungroup()%>%
+  glimpse()
+d10
+
+#calculate mean density etc per location3
+d11<-d10%>%
+  group_by(year, location, location3,organism)%>%
+  summarise(
+    Density_n=n(),
+    Density_m2_u=mean(density_m2),
+    Density_sd=sd(density_m2))%>%
+  glimpse()
+d11
+
+
+#calculate mean density etc per location
+d12<-d10%>%
+  group_by(year, location, organism)%>%
+  summarise(
+    Density_n=n(),
+    Density_m2_u=mean(density_m2),
+    Density_sd=sd(density_m2))%>%
+  glimpse()
+d12
+
+

@@ -192,3 +192,24 @@ deets11<-theme_bw() +
         axis.title.x=element_text(vjust=.5), 
         legend.position="none",
         strip.text = element_text(size=rel(1.3)))
+
+
+# legend upper right
+deets12<-theme_bw() + #
+  theme(panel.grid.minor=element_blank(), 
+        panel.grid.major=element_blank(),
+        panel.background=element_rect(fill=NA),
+        panel.border=element_rect(fill=NA),
+        # axis.line = element_line(size=.5),
+        # axis.ticks = element_line(size=.5),
+        axis.title = element_text(size=rel(1.4),colour="black", lineheight=.8), 
+        axis.text = element_text(size=rel(1.3), lineheight=.8,  colour="black"),#, face="bold"),
+        axis.title.y=element_text(vjust=1,lineheight=.8),
+        axis.title.x=element_text(vjust=.5), 
+        
+        legend.title=element_text(size=rel(1.2)),
+        legend.text=element_text(size=rel(1.1)),
+        # legend.position=c(.85,.8),
+        legend.background = element_rect(colour='white'),
+        panel.spacing=unit(2,"lines"),
+        strip.text = element_text(size=rel(1.3)))

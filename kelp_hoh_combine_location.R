@@ -14,39 +14,55 @@ rm(list=ls())
 dateToday=Sys.Date()
 
 # oral history data 
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp")
+# setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 # location
 d1_1<-read_csv("./results/kelp_oh_abundance_location.csv")%>% 
-  dplyr::select(year:abundance_n,reference_n=respondent_n) # reference_n & respondent_n are parallel measures 
+  dplyr::select(year:source,present,abundance_u:abundance_n,reference_n=respondent_n)%>%
+  filter(location!="Other")%>%
+  glimpse()# reference_n & respondent_n are parallel measures 
+
 d1s_1<-read_csv("./results/kelp_oh_sp_abundance_location.csv")%>% # species data
-  dplyr::select(year:abundance_n,reference_n=respondent_n)
+  filter(location!="Other")%>%
+  dplyr::select(year:source,abundance_u:abundance_n,reference_n=respondent_n)%>%
+  glimpse()
 
 #location3
 d1_3<-read_csv("./results/kelp_oh_abundance_location3.csv")%>% 
-  dplyr::select(year:abundance_n,reference_n=respondent_n) # reference_n & respondent_n are parallel measures 
+  filter(location3!="Other")%>%
+  dplyr::select(year:source,present,abundance_u:abundance_n,reference_n=respondent_n)%>%glimpse() # reference_n & respondent_n are parallel measures 
+
 d1s_3<-read_csv("./results/kelp_oh_sp_abundance_location3.csv")%>% # species data
-  dplyr::select(year:abundance_n,reference_n=respondent_n)
+  filter(location3!="Other")%>%
+  dplyr::select(year:source,abundance_u:abundance_n,reference_n=respondent_n)%>%glimpse()
 
 
 # historic data by site ##########
 # location
-d2_1<-read_csv ("./results/kelp_historical_abundance_location.csv")
-d2s_1<-read_csv("./results/kelp_historical_sp_abundance_location.csv")
+d2_1<-read_csv ("./results/kelp_historical_abundance_location.csv")%>% 
+  select(year:source,present,abundance_u:abundance_n,reference_n=author_n)%>%
+  filter(location!="Other")%>%
+  glimpse()
+
+d2s_1<-read_csv("./results/kelp_historical_sp_abundance_location.csv")%>% 
+  select(year:source,abundance_u:abundance_n,reference_n=author_n)%>%
+  filter(location!="Other")%>%
+  glimpse()
 
 #location23 are the same here
-d2_2<-read_csv("./results/kelp_historical_abundance_location23.csv")%>%
-  dplyr::select(-location3)
-d2s_2<-read_csv("./results/kelp_historical_sp_abundance_location23.csv")%>%
-  dplyr::select(-location3)
-
 d2_3<-read_csv("./results/kelp_historical_abundance_location23.csv")%>%
-  dplyr::select(-location2)
-d2s_3<-read_csv("./results/kelp_historical_sp_abundance_location23.csv")%>%
-  dplyr::select(-location2)
+  select(year:source,present,abundance_u:abundance_n,reference_n=author_n)%>%
+  # filter(location3!="California")%>%
+  glimpse()
 
-d1_1
-d2_1
+d2s_3<-read_csv("./results/kelp_historical_sp_abundance_location23.csv")%>%
+  select(year:source,abundance_u:abundance_n,reference_n=author_n)%>%
+  # filter(location3!="California")%>%
+  glimpse()
+
+d1s_1
+d2s_1
 
 # combine data sources
 
@@ -63,20 +79,15 @@ unique(d3s_1$location)
 
 unique(d3_3$location3)
 unique(d3s_3$location3)
-d3_3$location3[d3_3$location3=="MontereyUnspecified"]<-"MontereyBay"
-d3s_3$location3[d3s_3$location3=="MontereyUnspecified"]<-"MontereyBay"
+d3_3$location3[d3_3$location3=="Monterey Unspecified"]<-"Monterey Bay"
+d3s_3$location3[d3s_3$location3=="Monterey Unspecified"]<-"Monterey Bay"
 
 
 # check location
 unique(d3_3$location3)
 
 # check genera spelling
-d3s_1$genus[d3s_1$genus=="Macrocystsis"]<-"Macrocystis"
-d3s_1$genus[d3s_1$genus=="Nereocystsis"]<-"Nereocystis"
-
-d3s_3$genus[d3s_3$genus=="Macrocystsis"]<-"Macrocystis"
-d3s_3$genus[d3s_3$genus=="Nereocystsis"]<-"Nereocystis"
-
+unique(d3s_1$genus)
 unique(d3s_1$genus)
 
 # save combined data

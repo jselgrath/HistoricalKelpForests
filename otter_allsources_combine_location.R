@@ -11,10 +11,7 @@ library(scales)
 library(ggthemes) #tableau colors
 #####################################################
 rm(list=ls())
-dateToday=Sys.Date()
-
-
-setwd("C:/Users/jselg/Dropbox/0Research/R.projects/MontereyBayChange/Kelp")
+setwd("C:/Users/jselg/OneDrive/Documents/research/R_projects/MontereyBayChange/Kelp")
 
 # hoh data
 d1<-read_csv("./results/otter_hoh_abundance_location.csv")%>% # historical, oral history, literature
@@ -23,7 +20,7 @@ d1
 tail(d1)
 
 # cdfw data
-d2<-read_csv("./results/otter_cdfw_dens_0-30m_location.csv") # contemporary otter data
+d2<-read_csv("./data/otter_cdfw_dens_0-30m_location.csv") # contemporary otter data
 d2$source<-"Contemporary Data"
 ##############################
 unique(d1$location)
